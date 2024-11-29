@@ -1,0 +1,5 @@
+opencv_python==4.10.0
+mediapipe==0.10.18
+pandas==2.2.3
+scikit_learn==1.4.1.post1
+tensorflow==2.18.0

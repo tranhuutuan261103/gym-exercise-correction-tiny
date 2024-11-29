@@ -1,0 +1,5 @@
+.venv
+__pycache__
+
+captured_images
+captured_results
