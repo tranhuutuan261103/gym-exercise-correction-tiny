@@ -161,6 +161,7 @@ class PlankModel:
         
     def predict(self, frame, prediction_probability_threshold=0.5):
         current_class = "Unknown"
+        error = "Unknown"
 
         with self.mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -230,4 +231,9 @@ class PlankModel:
             except Exception as e:
                 print(f"Error: {e}")
 
-        return image
+        if error == "Unknown":
+            error = "Unknown"
+        else:
+            error = error.replace(", ", "_").replace(" ", "_").lower()
+
+        return image, current_class, error
