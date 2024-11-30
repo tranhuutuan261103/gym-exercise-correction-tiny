@@ -47,14 +47,14 @@ class Recording:
             cv2.imwrite(image_path, frame)
             self.image_count += 1
 
-            result_image = self.model.predict(frame=frame, prediction_probability_threshold=0.5)
+            result_image, class_name, message = self.model.predict(frame=frame, prediction_probability_threshold=0.5)
             result_image_path = os.path.join(self.output_result_folder, f"result_{self.image_count}.jpg")
             cv2.imwrite(result_image_path, result_image)
 
             # Gửi tín hiệu "Oke" qua cổng serial sau khi dự đoán xong
             try:
-                message = "Oke"
-                self.serial_port.write(message.encode('utf-8'))
+                if class_name == "W":
+                    self.serial_port.write(message.encode('utf-8'))
             except Exception as e:
                 print(f"Lỗi khi gửi phản hồi qua UART: {e}")
 
